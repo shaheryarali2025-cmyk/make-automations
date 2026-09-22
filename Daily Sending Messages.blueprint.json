@@ -1,0 +1,3103 @@
+{
+    "name": "Daily Sending Messages",
+    "flow": [
+        {
+            "id": 1,
+            "module": "airtable:ActionSearchRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 6851663
+            },
+            "mapper": {
+                "base": "appOlb5yr1zjwFtf1",
+                "table": "tblwe1dXa2GlNlqQq",
+                "formula": "AND(\r\n  OR(\r\n    {PPD Status} = \"TRIAL\",\r\n    {PPD Status} = \"ACTIVE\"\r\n  ),\r\n  FIND(\"Email\", {Delivery Channel} & \"\") > 0,\r\n  LOWER({Message Status} & \"\") != \"stop\"\r\n)",
+                "maxRecords": "5",
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0,
+                    "name": "Serach Record In Subscriber"
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "mode": "chose",
+                            "label": "PetNPrep – Ops & Audit"
+                        },
+                        "sort": {
+                            "mode": "chose"
+                        },
+                        "view": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "table": {
+                            "mode": "chose",
+                            "label": "Subscribers"
+                        },
+                        "fields": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "AirTable Connection PetNPrep"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "formula",
+                        "type": "text",
+                        "label": "Formula"
+                    },
+                    {
+                        "name": "maxRecords",
+                        "type": "integer",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "sort",
+                        "spec": [
+                            {
+                                "name": "field",
+                                "type": "select",
+                                "label": "Field",
+                                "dynamic": true,
+                                "options": []
+                            },
+                            {
+                                "name": "direction",
+                                "type": "select",
+                                "label": "Direction",
+                                "options": [
+                                    {
+                                        "label": "Descending",
+                                        "value": "desc"
+                                    },
+                                    {
+                                        "label": "Ascending",
+                                        "value": "asc"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Sort"
+                    },
+                    {
+                        "name": "view",
+                        "type": "select",
+                        "label": "View"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "select",
+                        "label": "Output Fields",
+                        "multiple": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Subscriber ID",
+                        "type": "text",
+                        "label": "Subscriber ID"
+                    },
+                    {
+                        "name": "Full Name",
+                        "type": "text",
+                        "label": "Full Name"
+                    },
+                    {
+                        "name": "First Name",
+                        "type": "text",
+                        "label": "First Name"
+                    },
+                    {
+                        "name": "Last Name",
+                        "type": "text",
+                        "label": "Last Name"
+                    },
+                    {
+                        "name": "Email",
+                        "type": "text",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "Subscriber Key",
+                        "type": "text",
+                        "label": "Subscriber Key"
+                    },
+                    {
+                        "name": "Phone Number",
+                        "type": "text",
+                        "label": "Phone Number"
+                    },
+                    {
+                        "name": "Country",
+                        "type": "text",
+                        "label": "Country"
+                    },
+                    {
+                        "name": "Customer Type",
+                        "type": "array",
+                        "label": "Customer Type",
+                        "dynamic": true,
+                        "editable": true
+                    },
+                    {
+                        "name": "Revision Limits",
+                        "type": "number",
+                        "label": "Revision Limits"
+                    },
+                    {
+                        "name": "Delivery Channel",
+                        "type": "array",
+                        "label": "Delivery Channel",
+                        "dynamic": true,
+                        "editable": true
+                    },
+                    {
+                        "name": "WhatsApp Opt-In",
+                        "type": "boolean",
+                        "label": "WhatsApp Opt-In"
+                    },
+                    {
+                        "name": "WhatsApp Suppressed",
+                        "type": "boolean",
+                        "label": "WhatsApp Suppressed"
+                    },
+                    {
+                        "name": "WhatsApp Suppressed At",
+                        "time": true,
+                        "type": "date",
+                        "label": "WhatsApp Suppressed At"
+                    },
+                    {
+                        "name": "Email - OPT-In",
+                        "type": "boolean",
+                        "label": "Email - OPT-In"
+                    },
+                    {
+                        "name": "Email Suppressed",
+                        "type": "boolean",
+                        "label": "Email Suppressed"
+                    },
+                    {
+                        "name": "Email Suppressed At",
+                        "time": true,
+                        "type": "date",
+                        "label": "Email Suppressed At"
+                    },
+                    {
+                        "name": "Message Status",
+                        "type": "text",
+                        "label": "Message Status"
+                    },
+                    {
+                        "name": "Channel Last Confirmed At",
+                        "time": true,
+                        "type": "date",
+                        "label": "Channel Last Confirmed At"
+                    },
+                    {
+                        "name": "Account State",
+                        "type": "text",
+                        "label": "Account State"
+                    },
+                    {
+                        "name": "PPD Status",
+                        "type": "text",
+                        "label": "PPD Status"
+                    },
+                    {
+                        "name": "PPD Start Date",
+                        "time": true,
+                        "type": "date",
+                        "label": "PPD Start Date"
+                    },
+                    {
+                        "name": "PPD End Date",
+                        "time": true,
+                        "type": "date",
+                        "label": "PPD End Date"
+                    },
+                    {
+                        "name": "Next Renewal",
+                        "time": true,
+                        "type": "date",
+                        "label": "Next Renewal"
+                    },
+                    {
+                        "name": "Product Code",
+                        "type": "array",
+                        "label": "Product Code",
+                        "dynamic": true,
+                        "editable": true
+                    },
+                    {
+                        "name": "Price ID",
+                        "type": "text",
+                        "label": "Price ID"
+                    },
+                    {
+                        "name": "PaymentIntent ID",
+                        "type": "text",
+                        "label": "PaymentIntent ID"
+                    },
+                    {
+                        "name": "Stripe Customer ID",
+                        "type": "text",
+                        "label": "Stripe Customer ID"
+                    },
+                    {
+                        "name": "Stripe Subscription ID",
+                        "type": "text",
+                        "label": "Stripe Subscription ID"
+                    },
+                    {
+                        "name": "Last Stripe Event ID",
+                        "type": "text",
+                        "label": "Last Stripe Event ID"
+                    },
+                    {
+                        "name": "Last Stripe Event Type",
+                        "type": "text",
+                        "label": "Last Stripe Event Type"
+                    },
+                    {
+                        "name": "Source Description",
+                        "type": "text",
+                        "label": "Source Description",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Last Stripe Event At",
+                        "time": true,
+                        "type": "date",
+                        "label": "Last Stripe Event At"
+                    },
+                    {
+                        "name": "Entitlement: PPP",
+                        "type": "boolean",
+                        "label": "Entitlement: PPP"
+                    },
+                    {
+                        "name": "Entitlement: PPD",
+                        "type": "boolean",
+                        "label": "Entitlement: PPD"
+                    },
+                    {
+                        "name": "Entitlement: Digital Products",
+                        "type": "boolean",
+                        "label": "Entitlement: Digital Products"
+                    },
+                    {
+                        "name": "PPP Granted At",
+                        "time": true,
+                        "type": "date",
+                        "label": "PPP Granted At"
+                    },
+                    {
+                        "name": "PPD Granted At",
+                        "time": true,
+                        "type": "date",
+                        "label": "PPD Granted At"
+                    },
+                    {
+                        "name": "Digital Granted At",
+                        "time": true,
+                        "type": "date",
+                        "label": "Digital Granted At"
+                    },
+                    {
+                        "name": "SuiteDash Contact ID",
+                        "type": "text",
+                        "label": "SuiteDash Contact ID"
+                    },
+                    {
+                        "name": "Send Log",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Send Log"
+                    },
+                    {
+                        "name": "Stripe Event Log",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Stripe Event Log"
+                    },
+                    {
+                        "name": "Messages",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Messages"
+                    },
+                    {
+                        "name": "SuiteDash Access Status",
+                        "type": "text",
+                        "label": "SuiteDash Access Status"
+                    },
+                    {
+                        "name": "Last SuiteDash Sync At",
+                        "time": true,
+                        "type": "date",
+                        "label": "Last SuiteDash Sync At"
+                    },
+                    {
+                        "name": "Linked Send Queue",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Linked Send Queue"
+                    },
+                    {
+                        "name": "Daily Send Queue",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Daily Send Queue"
+                    },
+                    {
+                        "name": "Collaborators",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "email",
+                                "type": "email",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Collaborators"
+                    },
+                    {
+                        "name": "Autonumber",
+                        "type": "number",
+                        "label": "Autonumber"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 12,
+            "module": "airtable:ActionSearchRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 6851663
+            },
+            "mapper": {
+                "base": "appOlb5yr1zjwFtf1",
+                "view": "viwpS5ivjA0SHZnmV",
+                "table": "tbl5IUvEizPwg7PqD",
+                "fields": [
+                    "Messages ID",
+                    "Message Type",
+                    "Message Text",
+                    "Image",
+                    "Channel Compatible",
+                    "Status",
+                    "Send Date",
+                    "Calculation",
+                    "Pet Type",
+                    "Theme",
+                    "Environment",
+                    "Created Time",
+                    "Daily Send Queue",
+                    "Send Log",
+                    "Subscribers",
+                    "Autonumber",
+                    "Day"
+                ],
+                "formula": "AND(\r\n  {Status} = \"Ready\",\r\n  {Message Type} = \"PPD Daily\"\r\n)",
+                "maxRecords": "1",
+                "useColumnId": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0,
+                    "name": "Search Record in Messages"
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "mode": "chose",
+                            "label": "PetNPrep – Ops & Audit"
+                        },
+                        "sort": {
+                            "mode": "chose"
+                        },
+                        "view": {
+                            "mode": "chose",
+                            "label": "Grid view"
+                        },
+                        "table": {
+                            "mode": "chose",
+                            "label": "Messages"
+                        },
+                        "fields": {
+                            "mode": "chose",
+                            "label": [
+                                "Messages ID",
+                                "Message Type",
+                                "Message Text",
+                                "Image",
+                                "Channel Compatible",
+                                "Status",
+                                "Send Date",
+                                "Calculation",
+                                "Pet Type",
+                                "Theme",
+                                "Environment",
+                                "Created Time",
+                                "Daily Send Queue",
+                                "Send Log",
+                                "Subscribers",
+                                "Autonumber",
+                                "Day"
+                            ]
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "AirTable Connection PetNPrep"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "formula",
+                        "type": "text",
+                        "label": "Formula"
+                    },
+                    {
+                        "name": "maxRecords",
+                        "type": "integer",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "sort",
+                        "spec": [
+                            {
+                                "name": "field",
+                                "type": "select",
+                                "label": "Field",
+                                "dynamic": true,
+                                "options": []
+                            },
+                            {
+                                "name": "direction",
+                                "type": "select",
+                                "label": "Direction",
+                                "options": [
+                                    {
+                                        "label": "Descending",
+                                        "value": "desc"
+                                    },
+                                    {
+                                        "label": "Ascending",
+                                        "value": "asc"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Sort"
+                    },
+                    {
+                        "name": "view",
+                        "type": "select",
+                        "label": "View"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "select",
+                        "label": "Output Fields",
+                        "multiple": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "fldsFfE5C2JGF9Eqo",
+                        "type": "text",
+                        "label": "Messages ID"
+                    },
+                    {
+                        "name": "fldUb1QSI71i98OyE",
+                        "type": "text",
+                        "label": "Message Type"
+                    },
+                    {
+                        "name": "fldBbXhLQvXZbxVBR",
+                        "type": "text",
+                        "label": "Message Text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "fldHwDPgfsFNxcokI",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "width",
+                                "type": "uinteger",
+                                "label": "Width"
+                            },
+                            {
+                                "name": "height",
+                                "type": "uinteger",
+                                "label": "Height"
+                            },
+                            {
+                                "name": "url",
+                                "type": "url",
+                                "label": "URL"
+                            },
+                            {
+                                "name": "filename",
+                                "type": "filename",
+                                "label": "File name"
+                            },
+                            {
+                                "name": "size",
+                                "type": "uinteger",
+                                "label": "Size"
+                            },
+                            {
+                                "name": "type",
+                                "type": "text",
+                                "label": "MIME type"
+                            },
+                            {
+                                "name": "thumbnails",
+                                "spec": [
+                                    {
+                                        "name": "small",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Small"
+                                    },
+                                    {
+                                        "name": "large",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Large"
+                                    },
+                                    {
+                                        "name": "full",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Full"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Thumbnails"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Image"
+                    },
+                    {
+                        "name": "fld3Zem4IdsIHefEn",
+                        "type": "array",
+                        "label": "Channel Compatible",
+                        "dynamic": true,
+                        "editable": true
+                    },
+                    {
+                        "name": "fldXKNjofigKv93E2",
+                        "type": "text",
+                        "label": "Status"
+                    },
+                    {
+                        "name": "fld3smyIPfGXqbX3L",
+                        "time": true,
+                        "type": "date",
+                        "label": "Send Date"
+                    },
+                    {
+                        "name": "fldOvxYQjRtOb0po8",
+                        "type": "text",
+                        "label": "Calculation"
+                    },
+                    {
+                        "name": "fldMvPqzf6ueFaZzN",
+                        "type": "text",
+                        "label": "Pet Type"
+                    },
+                    {
+                        "name": "fldLLEXIdoeQ4kAnw",
+                        "type": "text",
+                        "label": "Theme"
+                    },
+                    {
+                        "name": "fldlb6Jl4SCY19HmZ",
+                        "type": "text",
+                        "label": "Environment"
+                    },
+                    {
+                        "name": "fldHgrsequ8RwtZWn",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "fldeH0u0clv29GQoV",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Daily Send Queue"
+                    },
+                    {
+                        "name": "fld2tobtmanUoqT7Y",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Send Log"
+                    },
+                    {
+                        "name": "fldnS1KuPeGWvG1MB",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Subscribers"
+                    },
+                    {
+                        "name": "fld96x5a7FihgUrfC",
+                        "type": "number",
+                        "label": "Autonumber"
+                    },
+                    {
+                        "name": "fldDjSiPJaigfDj3o",
+                        "type": "text",
+                        "label": "Day"
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 33,
+            "module": "http:DownloadFile",
+            "version": 4,
+            "parameters": {
+                "authenticationType": "noAuth"
+            },
+            "mapper": {
+                "url": "{{12.fldHwDPgfsFNxcokI[].url}}",
+                "shareCookies": false,
+                "stopOnHttpError": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "queryParameters": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKey",
+                                "basicAuth",
+                                "oAuth"
+                            ]
+                        }
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "headers",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Header"
+                        },
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "queryParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Value"
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Parameter"
+                        },
+                        "type": "array",
+                        "label": "Query parameters"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 31,
+            "module": "sendgrid:sendMail",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 7005419
+            },
+            "mapper": {
+                "asm": {},
+                "from": {
+                    "name": "PetNPrep",
+                    "email": "hello@posipawsdaily.com"
+                },
+                "send_to": [
+                    {
+                        "name": "{{1.`Full Name`}}",
+                        "email": "{{1.Email}}"
+                    }
+                ],
+                "subject": "{{12.fldMvPqzf6ueFaZzN}}",
+                "reply_to": {},
+                "attachments": [
+                    {
+                        "content": "{{33.data}}",
+                        "filename": "{{33.fileName}}",
+                        "content_id": "{{12.fldHwDPgfsFNxcokI[].id}}"
+                    }
+                ],
+                "content_type": "text/html",
+                "content_value": "<!doctype html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"utf-8\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n  <title>PosiPawsDaily</title>\r\n</head>\r\n\r\n<body style=\"margin:0;padding:0;background:#f6f7fb;font-family:Arial,Helvetica,sans-serif;color:#111827;\">\r\n  <!-- Wrapper -->\r\n  <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"background:#f6f7fb;padding:24px 12px;\">\r\n    <tr>\r\n      <td align=\"center\">\r\n\r\n        <!-- Card -->\r\n        <table role=\"presentation\" width=\"600\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"\r\n          style=\"width:600px;max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(17,24,39,0.08);\">\r\n\r\n          <!-- Header -->\r\n          <tr>\r\n            <td style=\"padding:22px 24px;background:linear-gradient(135deg,#111827,#1f2937);\">\r\n              <div style=\"font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#cbd5e1;\">\r\n                Pet N Prep\r\n              </div>\r\n              <div style=\"margin-top:6px;font-size:22px;line-height:1.25;font-weight:700;color:#ffffff;\">\r\n                PosiPawsDaily 🐾\r\n              </div>\r\n              <div style=\"margin-top:6px;font-size:14px;line-height:1.4;color:#e5e7eb;\">\r\n                A quick daily tip to keep your pet feeling safe, happy, and cared for.\r\n              </div>\r\n            </td>\r\n          </tr>\r\n\r\n          <!-- Body -->\r\n          <tr>\r\n            <td style=\"padding:24px;\">\r\n              <div style=\"font-size:16px;line-height:1.55;margin:0 0 14px;\">\r\n                Hi <strong style=\"color:#111827;\">{{1.`Full Name`}}</strong>,\r\n              </div>\r\n\r\n              <!-- Message Box -->\r\n              <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"\r\n                style=\"background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;\">\r\n                <tr>\r\n                  <td style=\"padding:18px 18px;\">\r\n                    <div style=\"font-size:15px;line-height:1.65;color:#111827;white-space:pre-wrap;\">\r\n                      {{12.fldBbXhLQvXZbxVBR}}\r\n                    </div>\r\n                  </td>\r\n                </tr>\r\n              </table>\r\n\r\n              <!-- Meta -->\r\n              <div style=\"margin-top:16px;\">\r\n                <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\r\n                  <tr>\r\n                    <td style=\"padding:10px 12px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;\">\r\n                      <div style=\"font-size:12px;color:#6b7280;\">Pet Type</div>\r\n                      <div style=\"font-size:14px;font-weight:600;color:#111827;\">{{12.fldMvPqzf6ueFaZzN}}</div>\r\n                    </td>\r\n                    <td width=\"12\"></td>\r\n                    <td style=\"padding:10px 12px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;\">\r\n                      <div style=\"font-size:12px;color:#6b7280;\">Theme</div>\r\n                      <div style=\"font-size:14px;font-weight:600;color:#111827;\">{{12.fldLLEXIdoeQ4kAnw}}</div>\r\n                    </td>\r\n                  </tr>\r\n                </table>\r\n\r\n                <table role=\"presentation\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"margin-top:12px;\">\r\n                  <tr>\r\n                    <td style=\"padding:10px 12px;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;\">\r\n                      <div style=\"font-size:12px;color:#6b7280;\">Environment</div>\r\n                      <div style=\"font-size:14px;font-weight:600;color:#111827;\">{{12.fldlb6Jl4SCY19HmZ}}</div>\r\n                    </td>\r\n                  </tr>\r\n                </table>\r\n              </div>\r\n\r\n              <!-- Divider -->\r\n              <div style=\"height:1px;background:#e5e7eb;margin:22px 0;\"></div>\r\n\r\n              <!-- Footer text -->\r\n              <div style=\"font-size:13px;line-height:1.6;color:#6b7280;\">\r\n                If you’d like to stop receiving these emails, click the button below:\r\n              </div>\r\n\r\n              <!-- Unsubscribe Button -->\r\n              <table role=\"presentation\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"margin-top:14px;\">\r\n                <tr>\r\n                  <td align=\"center\" bgcolor=\"#ef4444\" style=\"border-radius:12px;\">\r\n                    <a href=\"https://hook.us2.make.com/os2irty9kmv9aays7n46eusxd2fbbvgi?sid={{1.id}}\"\r\n                       style=\"display:inline-block;padding:12px 18px;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:12px;\">\r\n                      Unsubscribe\r\n                    </a>\r\n                  </td>\r\n                </tr>\r\n              </table>\r\n\r\n              <!-- Small link fallback -->\r\n              <div style=\"margin-top:10px;font-size:12px;line-height:1.6;color:#9ca3af;\">\r\n                If the button doesn’t work, copy and paste this link into your browser:<br>\r\n                <span style=\"word-break:break-all;\">\r\n                  https://hook.us2.make.com/os2irty9kmv9aays7n46eusxd2fbbvgi?sid={{1.id}}\r\n                </span>\r\n              </div>\r\n\r\n              <div style=\"margin-top:20px;font-size:13px;color:#6b7280;\">\r\n                Thanks,<br>\r\n                <strong style=\"color:#111827;\">Pet N Prep Team</strong>\r\n              </div>\r\n            </td>\r\n          </tr>\r\n\r\n        </table>\r\n\r\n        <!-- Footer -->\r\n        <table role=\"presentation\" width=\"600\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width:600px;max-width:600px;\">\r\n          <tr>\r\n            <td style=\"padding:14px 6px 0;text-align:center;font-size:11px;color:#9ca3af;line-height:1.5;\">\r\n              You’re receiving this because you subscribed to PosiPawsDaily.<br>\r\n              © {{now}} Pet N Prep. All rights reserved.\r\n            </td>\r\n          </tr>\r\n        </table>\r\n\r\n      </td>\r\n    </tr>\r\n  </table>\r\n</body>\r\n</html>\r\n",
+                "templateOrNot": "no_template"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "asm": {
+                            "nested": {
+                                "group_id": {
+                                    "mode": "chose"
+                                },
+                                "groups_to_display": {
+                                    "mode": "chose"
+                                }
+                            }
+                        },
+                        "from": {
+                            "nested": {
+                                "email": {
+                                    "mode": "chose",
+                                    "label": "hello@posipawsdaily.com"
+                                }
+                            }
+                        },
+                        "headers": {
+                            "mode": "chose"
+                        },
+                        "send_to": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        },
+                        "categories": {
+                            "mode": "chose"
+                        },
+                        "attachments": {
+                            "mode": "chose",
+                            "items": [
+                                null
+                            ]
+                        },
+                        "custom_args": {
+                            "mode": "chose"
+                        },
+                        "content_type": {
+                            "mode": "chose",
+                            "label": "HTML"
+                        },
+                        "templateOrNot": {
+                            "mode": "chose",
+                            "label": "No"
+                        },
+                        "copy_recipient": {
+                            "mode": "chose"
+                        },
+                        "blind_copy_recipient": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "sendgrid"
+                            },
+                            "label": "SendGrid connection For PPD (Make.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:sendgrid",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "from",
+                        "spec": [
+                            {
+                                "name": "email",
+                                "type": "select",
+                                "label": "Email address",
+                                "required": true
+                            },
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "From"
+                    },
+                    {
+                        "name": "send_to",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "email",
+                                    "type": "email",
+                                    "label": "Email address",
+                                    "required": true
+                                },
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name"
+                                }
+                            ],
+                            "type": "collection"
+                        },
+                        "type": "array",
+                        "label": "Send to",
+                        "required": true,
+                        "validate": {
+                            "maxItems": 1000
+                        }
+                    },
+                    {
+                        "name": "templateOrNot",
+                        "type": "select",
+                        "label": "Use SendGrid Transactional template?",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "template",
+                                "no_template"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "attachments",
+                        "spec": [
+                            {
+                                "name": "filename",
+                                "type": "text",
+                                "label": "File name",
+                                "required": true,
+                                "semantic": "file:name"
+                            },
+                            {
+                                "name": "content",
+                                "type": "buffer",
+                                "label": "Data",
+                                "required": true,
+                                "semantic": "file:data"
+                            },
+                            {
+                                "name": "content_id",
+                                "type": "text",
+                                "label": "Content ID"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Attachments"
+                    },
+                    {
+                        "name": "categories",
+                        "spec": {
+                            "name": "value",
+                            "type": "text",
+                            "label": "Category",
+                            "validate": {
+                                "max": 255
+                            }
+                        },
+                        "type": "array",
+                        "label": "Categories",
+                        "validate": {
+                            "maxItems": 10
+                        }
+                    },
+                    {
+                        "name": "send_at",
+                        "type": "date",
+                        "label": "Send at"
+                    },
+                    {
+                        "name": "copy_recipient",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "email",
+                                    "type": "email",
+                                    "label": "Email"
+                                },
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name"
+                                }
+                            ],
+                            "type": "collection"
+                        },
+                        "type": "array",
+                        "label": "Copy recipient",
+                        "validate": {
+                            "maxItems": 999
+                        }
+                    },
+                    {
+                        "name": "blind_copy_recipient",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "email",
+                                    "type": "email",
+                                    "label": "Email"
+                                },
+                                {
+                                    "name": "name",
+                                    "type": "text",
+                                    "label": "Name"
+                                }
+                            ],
+                            "type": "collection"
+                        },
+                        "type": "array",
+                        "label": "Blind copy recipient",
+                        "validate": {
+                            "maxItems": 999
+                        }
+                    },
+                    {
+                        "name": "reply_to",
+                        "spec": [
+                            {
+                                "name": "email",
+                                "type": "email",
+                                "label": "Email address"
+                            },
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Reply to"
+                    },
+                    {
+                        "name": "asm",
+                        "spec": [
+                            {
+                                "name": "group_id",
+                                "type": "select",
+                                "label": "Group ID"
+                            },
+                            {
+                                "name": "groups_to_display",
+                                "type": "select",
+                                "label": "Groups to Display",
+                                "multiple": true
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "ASM"
+                    },
+                    {
+                        "name": "custom_args",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key"
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Custom Args"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Headers"
+                    },
+                    {
+                        "name": "subject",
+                        "type": "text",
+                        "label": "Subject",
+                        "required": true
+                    },
+                    {
+                        "name": "content_type",
+                        "type": "select",
+                        "label": "Content Type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "text/plain",
+                                "text/html"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "content_value",
+                        "type": "text",
+                        "label": "Content",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 10,
+            "module": "airtable:ActionCreateRecord",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 6851663
+            },
+            "mapper": {
+                "base": "appOlb5yr1zjwFtf1",
+                "table": "tbl269dJDeLLfy4NE",
+                "record": {
+                    "fldCPqQl8aQRIe693": "Email Provider",
+                    "fldE3skuIs6oed8sU": [
+                        "{{12.id}}"
+                    ],
+                    "fldMjgXPobahq9QhY": "{{31.XmessageId}}",
+                    "fldZzwcdy3YFB1SoE": "Email",
+                    "fldiGQCvOREt4hh2b": [
+                        "{{1.id}}"
+                    ],
+                    "fldpTxtVTzAK1rIAL": "{{now}}",
+                    "fldv06VcQjbnf18Wd": "Sent"
+                },
+                "typecast": false,
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 0,
+                    "name": "Create Record in Send Log"
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "PetNPrep – Ops & Audit"
+                        },
+                        "table": {
+                            "label": "Send Log",
+                            "nested": [
+                                {
+                                    "name": "record",
+                                    "spec": [
+                                        {
+                                            "name": "fldpTxtVTzAK1rIAL",
+                                            "time": true,
+                                            "type": "date",
+                                            "label": "Timestamp"
+                                        },
+                                        {
+                                            "name": "fldiGQCvOREt4hh2b",
+                                            "spec": {
+                                                "label": "Record ID"
+                                            },
+                                            "type": "array",
+                                            "label": "Subscriber"
+                                        },
+                                        {
+                                            "name": "fldlMqqYhoClRIS0F",
+                                            "spec": {
+                                                "label": "Record ID"
+                                            },
+                                            "type": "array",
+                                            "label": "Queue Item"
+                                        },
+                                        {
+                                            "name": "fldE3skuIs6oed8sU",
+                                            "spec": {
+                                                "label": "Record ID"
+                                            },
+                                            "type": "array",
+                                            "label": "Message"
+                                        },
+                                        {
+                                            "mode": "edit",
+                                            "name": "fldZzwcdy3YFB1SoE",
+                                            "type": "select",
+                                            "label": "Channel",
+                                            "dynamic": true,
+                                            "options": [
+                                                {
+                                                    "label": "Email",
+                                                    "value": "Email"
+                                                },
+                                                {
+                                                    "label": "WhatsApp",
+                                                    "value": "WhatsApp"
+                                                }
+                                            ],
+                                            "validate": false
+                                        },
+                                        {
+                                            "mode": "edit",
+                                            "name": "fldCPqQl8aQRIe693",
+                                            "type": "select",
+                                            "label": "Provider",
+                                            "dynamic": true,
+                                            "options": [
+                                                {
+                                                    "label": "Twilio",
+                                                    "value": "Twilio"
+                                                },
+                                                {
+                                                    "label": "Email Provider",
+                                                    "value": "Email Provider"
+                                                }
+                                            ],
+                                            "validate": false
+                                        },
+                                        {
+                                            "name": "fldMjgXPobahq9QhY",
+                                            "type": "text",
+                                            "label": "Provider Message ID"
+                                        },
+                                        {
+                                            "mode": "edit",
+                                            "name": "fldv06VcQjbnf18Wd",
+                                            "type": "select",
+                                            "label": "Delivery Status",
+                                            "dynamic": true,
+                                            "options": [
+                                                {
+                                                    "label": "Sent",
+                                                    "value": "Sent"
+                                                },
+                                                {
+                                                    "label": "Delivered",
+                                                    "value": "Delivered"
+                                                },
+                                                {
+                                                    "label": "Failed",
+                                                    "value": "Failed"
+                                                },
+                                                {
+                                                    "label": "Bounced",
+                                                    "value": "Bounced"
+                                                },
+                                                {
+                                                    "label": "Undelivered",
+                                                    "value": "Undelivered"
+                                                },
+                                                {
+                                                    "label": "Suppressed",
+                                                    "value": "Suppressed"
+                                                }
+                                            ],
+                                            "validate": false
+                                        },
+                                        {
+                                            "name": "fldCeUPJToK1T37LD",
+                                            "type": "text",
+                                            "label": "Error Code"
+                                        },
+                                        {
+                                            "name": "fldfcQRJ0d6ya3w5e",
+                                            "type": "text",
+                                            "label": "Error Message",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldcRQJl5wvup1X0H",
+                                            "spec": {
+                                                "label": "Record ID"
+                                            },
+                                            "type": "array",
+                                            "label": "Subscribers"
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Record"
+                                }
+                            ]
+                        },
+                        "record": {
+                            "nested": {
+                                "fldCPqQl8aQRIe693": {
+                                    "mode": "chose",
+                                    "label": "Email Provider"
+                                },
+                                "fldE3skuIs6oed8sU": {
+                                    "mode": "chose",
+                                    "items": [
+                                        null
+                                    ]
+                                },
+                                "fldZzwcdy3YFB1SoE": {
+                                    "mode": "chose",
+                                    "label": "Email"
+                                },
+                                "fldcRQJl5wvup1X0H": {
+                                    "mode": "chose"
+                                },
+                                "fldiGQCvOREt4hh2b": {
+                                    "mode": "chose",
+                                    "items": [
+                                        null
+                                    ]
+                                },
+                                "fldlMqqYhoClRIS0F": {
+                                    "mode": "chose"
+                                },
+                                "fldv06VcQjbnf18Wd": {
+                                    "mode": "chose",
+                                    "label": "Sent"
+                                }
+                            }
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "AirTable Connection PetNPrep"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "name": "fldpTxtVTzAK1rIAL",
+                                "time": true,
+                                "type": "date",
+                                "label": "Timestamp"
+                            },
+                            {
+                                "name": "fldiGQCvOREt4hh2b",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Subscriber"
+                            },
+                            {
+                                "name": "fldlMqqYhoClRIS0F",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Queue Item"
+                            },
+                            {
+                                "name": "fldE3skuIs6oed8sU",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Message"
+                            },
+                            {
+                                "mode": "edit",
+                                "name": "fldZzwcdy3YFB1SoE",
+                                "type": "select",
+                                "label": "Channel"
+                            },
+                            {
+                                "mode": "edit",
+                                "name": "fldCPqQl8aQRIe693",
+                                "type": "select",
+                                "label": "Provider"
+                            },
+                            {
+                                "name": "fldMjgXPobahq9QhY",
+                                "type": "text",
+                                "label": "Provider Message ID"
+                            },
+                            {
+                                "mode": "edit",
+                                "name": "fldv06VcQjbnf18Wd",
+                                "type": "select",
+                                "label": "Delivery Status"
+                            },
+                            {
+                                "name": "fldCeUPJToK1T37LD",
+                                "type": "text",
+                                "label": "Error Code"
+                            },
+                            {
+                                "name": "fldfcQRJ0d6ya3w5e",
+                                "type": "text",
+                                "label": "Error Message"
+                            },
+                            {
+                                "name": "fldcRQJl5wvup1X0H",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Subscribers"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Log ID",
+                        "type": "text",
+                        "label": "Log ID"
+                    },
+                    {
+                        "name": "Timestamp",
+                        "time": true,
+                        "type": "date",
+                        "label": "Timestamp"
+                    },
+                    {
+                        "name": "Channel",
+                        "type": "text",
+                        "label": "Channel"
+                    },
+                    {
+                        "name": "Provider",
+                        "type": "text",
+                        "label": "Provider"
+                    },
+                    {
+                        "name": "Provider Message ID",
+                        "type": "text",
+                        "label": "Provider Message ID"
+                    },
+                    {
+                        "name": "Delivery Status",
+                        "type": "text",
+                        "label": "Delivery Status"
+                    },
+                    {
+                        "name": "Subscriber",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Subscriber"
+                    },
+                    {
+                        "name": "Message",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Message"
+                    },
+                    {
+                        "name": "Error Code",
+                        "type": "text",
+                        "label": "Error Code"
+                    },
+                    {
+                        "name": "Error Message",
+                        "type": "text",
+                        "label": "Error Message",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Queue Item",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Queue Item"
+                    },
+                    {
+                        "name": "Autonumber",
+                        "type": "number",
+                        "label": "Autonumber"
+                    },
+                    {
+                        "name": "Subscribers",
+                        "type": "text",
+                        "label": "Subscribers"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 38,
+            "module": "builtin:BasicAggregator",
+            "version": 1,
+            "parameters": {
+                "feeder": 1
+            },
+            "mapper": {
+                "id": "{{12.id}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1500,
+                    "y": 0
+                },
+                "restore": {
+                    "extra": {
+                        "feeder": {
+                            "label": "Serach Record In Subscriber - Search Records [1]"
+                        },
+                        "target": {
+                            "label": "Custom"
+                        }
+                    }
+                },
+                "advanced": true
+            },
+            "flags": {
+                "groupBy": "{{12.id}}"
+            }
+        },
+        {
+            "id": 27,
+            "module": "airtable:ActionUpdateRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 6851663
+            },
+            "mapper": {
+                "id": "{{38.array[].id}}",
+                "base": "appOlb5yr1zjwFtf1",
+                "table": "tbl5IUvEizPwg7PqD",
+                "record": {
+                    "fldXKNjofigKv93E2": "Sent"
+                },
+                "typecast": false,
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1800,
+                    "y": 0,
+                    "name": "Messages"
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "PetNPrep – Ops & Audit"
+                        },
+                        "table": {
+                            "label": "Messages"
+                        },
+                        "record": {
+                            "nested": {
+                                "fld2tobtmanUoqT7Y": {
+                                    "mode": "chose"
+                                },
+                                "fld3Zem4IdsIHefEn": {
+                                    "mode": "chose"
+                                },
+                                "fldHwDPgfsFNxcokI": {
+                                    "mode": "chose"
+                                },
+                                "fldUb1QSI71i98OyE": {
+                                    "mode": "edit"
+                                },
+                                "fldXKNjofigKv93E2": {
+                                    "mode": "edit"
+                                },
+                                "fldeH0u0clv29GQoV": {
+                                    "mode": "chose"
+                                },
+                                "fldnS1KuPeGWvG1MB": {
+                                    "mode": "chose"
+                                }
+                            }
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "AirTable Connection PetNPrep"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "Record ID",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "mode": "edit",
+                                "name": "fldUb1QSI71i98OyE",
+                                "type": "select",
+                                "label": "Message Type"
+                            },
+                            {
+                                "name": "fldBbXhLQvXZbxVBR",
+                                "type": "text",
+                                "label": "Message Text"
+                            },
+                            {
+                                "name": "fldHwDPgfsFNxcokI",
+                                "spec": [
+                                    {
+                                        "name": "url",
+                                        "type": "text",
+                                        "label": "File URL"
+                                    },
+                                    {
+                                        "name": "filename",
+                                        "type": "filename",
+                                        "label": "File name"
+                                    }
+                                ],
+                                "type": "array",
+                                "label": "Image"
+                            },
+                            {
+                                "name": "fld3Zem4IdsIHefEn",
+                                "spec": {
+                                    "mode": "edit",
+                                    "name": "value",
+                                    "type": "select",
+                                    "label": "Value",
+                                    "dynamic": true,
+                                    "options": [
+                                        {
+                                            "label": "Email",
+                                            "value": "Email"
+                                        },
+                                        {
+                                            "label": "WhatsApp",
+                                            "value": "WhatsApp"
+                                        }
+                                    ],
+                                    "validate": false
+                                },
+                                "type": "array",
+                                "label": "Channel Compatible"
+                            },
+                            {
+                                "mode": "edit",
+                                "name": "fldXKNjofigKv93E2",
+                                "type": "select",
+                                "label": "Status"
+                            },
+                            {
+                                "name": "fld3smyIPfGXqbX3L",
+                                "time": true,
+                                "type": "date",
+                                "label": "Send Date"
+                            },
+                            {
+                                "name": "fldMvPqzf6ueFaZzN",
+                                "type": "text",
+                                "label": "Pet Type"
+                            },
+                            {
+                                "name": "fldLLEXIdoeQ4kAnw",
+                                "type": "text",
+                                "label": "Theme"
+                            },
+                            {
+                                "name": "fldlb6Jl4SCY19HmZ",
+                                "type": "text",
+                                "label": "Environment"
+                            },
+                            {
+                                "name": "fldeH0u0clv29GQoV",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Daily Send Queue"
+                            },
+                            {
+                                "name": "fld2tobtmanUoqT7Y",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Send Log"
+                            },
+                            {
+                                "name": "fldnS1KuPeGWvG1MB",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Subscribers"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Messages ID",
+                        "type": "text",
+                        "label": "Messages ID"
+                    },
+                    {
+                        "name": "Message Type",
+                        "type": "text",
+                        "label": "Message Type"
+                    },
+                    {
+                        "name": "Message Text",
+                        "type": "text",
+                        "label": "Message Text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Image",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "width",
+                                "type": "uinteger",
+                                "label": "Width"
+                            },
+                            {
+                                "name": "height",
+                                "type": "uinteger",
+                                "label": "Height"
+                            },
+                            {
+                                "name": "url",
+                                "type": "url",
+                                "label": "URL"
+                            },
+                            {
+                                "name": "filename",
+                                "type": "filename",
+                                "label": "File name"
+                            },
+                            {
+                                "name": "size",
+                                "type": "uinteger",
+                                "label": "Size"
+                            },
+                            {
+                                "name": "type",
+                                "type": "text",
+                                "label": "MIME type"
+                            },
+                            {
+                                "name": "thumbnails",
+                                "spec": [
+                                    {
+                                        "name": "small",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Small"
+                                    },
+                                    {
+                                        "name": "large",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Large"
+                                    },
+                                    {
+                                        "name": "full",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Full"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Thumbnails"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Image"
+                    },
+                    {
+                        "name": "Channel Compatible",
+                        "type": "array",
+                        "label": "Channel Compatible",
+                        "dynamic": true,
+                        "editable": true
+                    },
+                    {
+                        "name": "Status",
+                        "type": "text",
+                        "label": "Status"
+                    },
+                    {
+                        "name": "Send Date",
+                        "time": true,
+                        "type": "date",
+                        "label": "Send Date"
+                    },
+                    {
+                        "name": "Calculation",
+                        "type": "text",
+                        "label": "Calculation"
+                    },
+                    {
+                        "name": "Pet Type",
+                        "type": "text",
+                        "label": "Pet Type"
+                    },
+                    {
+                        "name": "Theme",
+                        "type": "text",
+                        "label": "Theme"
+                    },
+                    {
+                        "name": "Environment",
+                        "type": "text",
+                        "label": "Environment"
+                    },
+                    {
+                        "name": "Created Time",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Daily Send Queue",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Daily Send Queue"
+                    },
+                    {
+                        "name": "Send Log",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Send Log"
+                    },
+                    {
+                        "name": "Subscribers",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Subscribers"
+                    },
+                    {
+                        "name": "Autonumber",
+                        "type": "number",
+                        "label": "Autonumber"
+                    },
+                    {
+                        "name": "Day",
+                        "type": "text",
+                        "label": "Day"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 57,
+            "module": "airtable:ActionSearchRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 6851663
+            },
+            "filter": null,
+            "mapper": {
+                "base": "appOlb5yr1zjwFtf1",
+                "sort": [
+                    {
+                        "field": "Autonumber",
+                        "direction": "asc"
+                    }
+                ],
+                "table": "tbl5IUvEizPwg7PqD",
+                "formula": "AND(\r\n  {Message Type} = \"PPD Daily\",\r\n  {Status} = BLANK()\r\n)",
+                "maxRecords": "1",
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 2100,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "mode": "chose",
+                            "label": "PetNPrep – Ops & Audit"
+                        },
+                        "sort": {
+                            "mode": "chose",
+                            "items": [
+                                {
+                                    "field": {
+                                        "mode": "chose",
+                                        "label": "Autonumber"
+                                    },
+                                    "direction": {
+                                        "mode": "chose",
+                                        "label": "Ascending"
+                                    }
+                                }
+                            ]
+                        },
+                        "view": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "table": {
+                            "mode": "chose",
+                            "label": "Messages"
+                        },
+                        "fields": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "AirTable Connection PetNPrep"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "formula",
+                        "type": "text",
+                        "label": "Formula"
+                    },
+                    {
+                        "name": "maxRecords",
+                        "type": "integer",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "sort",
+                        "spec": [
+                            {
+                                "name": "field",
+                                "type": "select",
+                                "label": "Field",
+                                "dynamic": true,
+                                "options": []
+                            },
+                            {
+                                "name": "direction",
+                                "type": "select",
+                                "label": "Direction",
+                                "options": [
+                                    {
+                                        "label": "Descending",
+                                        "value": "desc"
+                                    },
+                                    {
+                                        "label": "Ascending",
+                                        "value": "asc"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Sort"
+                    },
+                    {
+                        "name": "view",
+                        "type": "select",
+                        "label": "View"
+                    },
+                    {
+                        "name": "fields",
+                        "type": "select",
+                        "label": "Output Fields",
+                        "multiple": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Messages ID",
+                        "type": "text",
+                        "label": "Messages ID"
+                    },
+                    {
+                        "name": "Message Type",
+                        "type": "text",
+                        "label": "Message Type"
+                    },
+                    {
+                        "name": "Message Text",
+                        "type": "text",
+                        "label": "Message Text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Image",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "width",
+                                "type": "uinteger",
+                                "label": "Width"
+                            },
+                            {
+                                "name": "height",
+                                "type": "uinteger",
+                                "label": "Height"
+                            },
+                            {
+                                "name": "url",
+                                "type": "url",
+                                "label": "URL"
+                            },
+                            {
+                                "name": "filename",
+                                "type": "filename",
+                                "label": "File name"
+                            },
+                            {
+                                "name": "size",
+                                "type": "uinteger",
+                                "label": "Size"
+                            },
+                            {
+                                "name": "type",
+                                "type": "text",
+                                "label": "MIME type"
+                            },
+                            {
+                                "name": "thumbnails",
+                                "spec": [
+                                    {
+                                        "name": "small",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Small"
+                                    },
+                                    {
+                                        "name": "large",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Large"
+                                    },
+                                    {
+                                        "name": "full",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Full"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Thumbnails"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Image"
+                    },
+                    {
+                        "name": "Channel Compatible",
+                        "type": "array",
+                        "label": "Channel Compatible",
+                        "dynamic": true,
+                        "editable": true
+                    },
+                    {
+                        "name": "Status",
+                        "type": "text",
+                        "label": "Status"
+                    },
+                    {
+                        "name": "Send Date",
+                        "time": true,
+                        "type": "date",
+                        "label": "Send Date"
+                    },
+                    {
+                        "name": "Calculation",
+                        "type": "text",
+                        "label": "Calculation"
+                    },
+                    {
+                        "name": "Pet Type",
+                        "type": "text",
+                        "label": "Pet Type"
+                    },
+                    {
+                        "name": "Theme",
+                        "type": "text",
+                        "label": "Theme"
+                    },
+                    {
+                        "name": "Environment",
+                        "type": "text",
+                        "label": "Environment"
+                    },
+                    {
+                        "name": "Created Time",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Daily Send Queue",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Daily Send Queue"
+                    },
+                    {
+                        "name": "Send Log",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Send Log"
+                    },
+                    {
+                        "name": "Subscribers",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Subscribers"
+                    },
+                    {
+                        "name": "Autonumber",
+                        "type": "number",
+                        "label": "Autonumber"
+                    },
+                    {
+                        "name": "Day",
+                        "type": "text",
+                        "label": "Day"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 58,
+            "module": "airtable:ActionUpdateRecords",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 6851663
+            },
+            "filter": null,
+            "mapper": {
+                "id": "{{57.id}}",
+                "base": "appOlb5yr1zjwFtf1",
+                "table": "tbl5IUvEizPwg7PqD",
+                "record": {
+                    "fldXKNjofigKv93E2": "Ready"
+                },
+                "typecast": false,
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 2400,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "PetNPrep – Ops & Audit"
+                        },
+                        "table": {
+                            "label": "Messages"
+                        },
+                        "record": {
+                            "nested": {
+                                "fld2tobtmanUoqT7Y": {
+                                    "mode": "chose"
+                                },
+                                "fld3Zem4IdsIHefEn": {
+                                    "mode": "chose"
+                                },
+                                "fldHwDPgfsFNxcokI": {
+                                    "mode": "chose"
+                                },
+                                "fldUb1QSI71i98OyE": {
+                                    "mode": "edit"
+                                },
+                                "fldXKNjofigKv93E2": {
+                                    "mode": "edit"
+                                },
+                                "fldeH0u0clv29GQoV": {
+                                    "mode": "chose"
+                                },
+                                "fldnS1KuPeGWvG1MB": {
+                                    "mode": "chose"
+                                }
+                            }
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            },
+                            "label": "AirTable Connection PetNPrep"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "Record ID",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "mode": "edit",
+                                "name": "fldUb1QSI71i98OyE",
+                                "type": "select",
+                                "label": "Message Type"
+                            },
+                            {
+                                "name": "fldBbXhLQvXZbxVBR",
+                                "type": "text",
+                                "label": "Message Text"
+                            },
+                            {
+                                "name": "fldHwDPgfsFNxcokI",
+                                "spec": [
+                                    {
+                                        "name": "url",
+                                        "type": "text",
+                                        "label": "File URL"
+                                    },
+                                    {
+                                        "name": "filename",
+                                        "type": "filename",
+                                        "label": "File name"
+                                    }
+                                ],
+                                "type": "array",
+                                "label": "Image"
+                            },
+                            {
+                                "name": "fld3Zem4IdsIHefEn",
+                                "spec": {
+                                    "mode": "edit",
+                                    "name": "value",
+                                    "type": "select",
+                                    "label": "Value",
+                                    "dynamic": true,
+                                    "options": [
+                                        {
+                                            "label": "Email",
+                                            "value": "Email"
+                                        },
+                                        {
+                                            "label": "WhatsApp",
+                                            "value": "WhatsApp"
+                                        }
+                                    ],
+                                    "validate": false
+                                },
+                                "type": "array",
+                                "label": "Channel Compatible"
+                            },
+                            {
+                                "mode": "edit",
+                                "name": "fldXKNjofigKv93E2",
+                                "type": "select",
+                                "label": "Status"
+                            },
+                            {
+                                "name": "fld3smyIPfGXqbX3L",
+                                "time": true,
+                                "type": "date",
+                                "label": "Send Date"
+                            },
+                            {
+                                "name": "fldMvPqzf6ueFaZzN",
+                                "type": "text",
+                                "label": "Pet Type"
+                            },
+                            {
+                                "name": "fldLLEXIdoeQ4kAnw",
+                                "type": "text",
+                                "label": "Theme"
+                            },
+                            {
+                                "name": "fldlb6Jl4SCY19HmZ",
+                                "type": "text",
+                                "label": "Environment"
+                            },
+                            {
+                                "name": "fldeH0u0clv29GQoV",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Daily Send Queue"
+                            },
+                            {
+                                "name": "fld2tobtmanUoqT7Y",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Send Log"
+                            },
+                            {
+                                "name": "fldnS1KuPeGWvG1MB",
+                                "spec": {
+                                    "name": "value",
+                                    "label": "Record ID"
+                                },
+                                "type": "array",
+                                "label": "Subscribers"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Messages ID",
+                        "type": "text",
+                        "label": "Messages ID"
+                    },
+                    {
+                        "name": "Message Type",
+                        "type": "text",
+                        "label": "Message Type"
+                    },
+                    {
+                        "name": "Message Text",
+                        "type": "text",
+                        "label": "Message Text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Image",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "width",
+                                "type": "uinteger",
+                                "label": "Width"
+                            },
+                            {
+                                "name": "height",
+                                "type": "uinteger",
+                                "label": "Height"
+                            },
+                            {
+                                "name": "url",
+                                "type": "url",
+                                "label": "URL"
+                            },
+                            {
+                                "name": "filename",
+                                "type": "filename",
+                                "label": "File name"
+                            },
+                            {
+                                "name": "size",
+                                "type": "uinteger",
+                                "label": "Size"
+                            },
+                            {
+                                "name": "type",
+                                "type": "text",
+                                "label": "MIME type"
+                            },
+                            {
+                                "name": "thumbnails",
+                                "spec": [
+                                    {
+                                        "name": "small",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Small"
+                                    },
+                                    {
+                                        "name": "large",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Large"
+                                    },
+                                    {
+                                        "name": "full",
+                                        "spec": [
+                                            {
+                                                "name": "url",
+                                                "type": "url",
+                                                "label": "URL"
+                                            },
+                                            {
+                                                "name": "width",
+                                                "type": "uinteger",
+                                                "label": "Width"
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "uinteger",
+                                                "label": "Height"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Full"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Thumbnails"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Image"
+                    },
+                    {
+                        "name": "Channel Compatible",
+                        "type": "array",
+                        "label": "Channel Compatible",
+                        "dynamic": true,
+                        "editable": true
+                    },
+                    {
+                        "name": "Status",
+                        "type": "text",
+                        "label": "Status"
+                    },
+                    {
+                        "name": "Send Date",
+                        "time": true,
+                        "type": "date",
+                        "label": "Send Date"
+                    },
+                    {
+                        "name": "Calculation",
+                        "type": "text",
+                        "label": "Calculation"
+                    },
+                    {
+                        "name": "Pet Type",
+                        "type": "text",
+                        "label": "Pet Type"
+                    },
+                    {
+                        "name": "Theme",
+                        "type": "text",
+                        "label": "Theme"
+                    },
+                    {
+                        "name": "Environment",
+                        "type": "text",
+                        "label": "Environment"
+                    },
+                    {
+                        "name": "Created Time",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Daily Send Queue",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Daily Send Queue"
+                    },
+                    {
+                        "name": "Send Log",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Send Log"
+                    },
+                    {
+                        "name": "Subscribers",
+                        "spec": {
+                            "label": "Record ID"
+                        },
+                        "type": "array",
+                        "label": "Subscribers"
+                    },
+                    {
+                        "name": "Autonumber",
+                        "type": "number",
+                        "label": "Autonumber"
+                    },
+                    {
+                        "name": "Day",
+                        "type": "text",
+                        "label": "Day"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
